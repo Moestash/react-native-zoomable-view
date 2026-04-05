@@ -200,7 +200,7 @@ declare class ReactNativeZoomableView extends Component<ReactNativeZoomableViewP
      * @returns {*}
      */
     _getNextZoomStep(): number | undefined;
-    setOffsetX(value: number): void;
+    reset(): void;
     /**
      * Zooms to a specific level. A "zoom center" can be provided, which specifies
      * the point that will remain in the same position on the screen after the zoom.
