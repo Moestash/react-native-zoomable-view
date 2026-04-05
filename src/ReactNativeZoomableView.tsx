@@ -83,7 +83,9 @@ class ReactNativeZoomableView extends Component<
     pagingEnabled: false,
     pagingThreshold: 0.25,
     pageWidth: undefined,
-    onPageChange: undefined
+    onPageChange: undefined,
+    canGoNext: true,
+    canGoPrev: true
   };
 
   private panAnim = new Animated.ValueXY({ x: 0, y: 0 });
@@ -266,7 +268,7 @@ class ReactNativeZoomableView extends Component<
           if (axis === "x" && this.props.pagingEnabled && this.props.pageWidth) {
             const threshold = this.props.pageWidth * (this.props.pagingThreshold ?? 0.25);
 
-            if (offset > threshold) {
+            if (offset > threshold && this.props.canGoPrev) {
               offsetState.boundaryCrossedAnimInEffect = true;
 
               Animated.spring(this.panAnim.x, {
@@ -281,7 +283,7 @@ class ReactNativeZoomableView extends Component<
               return;
             }
 
-            if (offset < -threshold) {
+            if (offset < -threshold && this.props.canGoNext) {
               offsetState.boundaryCrossedAnimInEffect = true;
 
               Animated.spring(this.panAnim.x, {

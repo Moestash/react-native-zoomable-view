@@ -36,6 +36,8 @@ declare class ReactNativeZoomableView extends Component<ReactNativeZoomableViewP
         pagingThreshold: number;
         pageWidth: undefined;
         onPageChange: undefined;
+        canGoNext: boolean;
+        canGoPrev: boolean;
     };
     private panAnim;
     private zoomAnim;
