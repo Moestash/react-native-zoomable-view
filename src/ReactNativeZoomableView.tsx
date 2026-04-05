@@ -262,9 +262,8 @@ class ReactNativeZoomableView extends Component<
         const boundariesApplied =
           boundOffset !== offset &&
           boundOffset.toFixed(3) !== offset.toFixed(3);
-        if (boundariesApplied) {
-
-          if (axis === "x" && this.props.pagingEnabled && this.props.pageWidth && !this._ignorePagingNext) {
+        if (boundariesApplied && !this._ignorePagingNext) {
+          if (axis === "x" && this.props.pagingEnabled && this.props.pageWidth) {
             const threshold = this.props.pageWidth * (this.props.pagingThreshold ?? 0.25);
 
             if (offset > threshold) {
