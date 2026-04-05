@@ -1141,6 +1141,11 @@ class ReactNativeZoomableView extends Component<
     return nextZoomStep;
   }
 
+  setOffsetX(value: number) {
+    this.offsetX = value;
+    this.panAnim.setValue({ x: value, y: this.offsetY });
+  }
+
   /**
    * Zooms to a specific level. A "zoom center" can be provided, which specifies
    * the point that will remain in the same position on the screen after the zoom.
