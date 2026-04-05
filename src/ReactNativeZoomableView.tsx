@@ -89,6 +89,7 @@ class ReactNativeZoomableView extends Component<
   private panAnim = new Animated.ValueXY({ x: 0, y: 0 });
   private zoomAnim = new Animated.Value(1);
   private pinAnim = new Animated.ValueXY({ x: 0, y: 0 });
+  private _ignorePagingNext = false;
 
   private __offsets = {
     x: {
@@ -263,7 +264,7 @@ class ReactNativeZoomableView extends Component<
           boundOffset.toFixed(3) !== offset.toFixed(3);
         if (boundariesApplied) {
 
-          if (axis === "x" && this.props.pagingEnabled && this.props.pageWidth) {
+          if (axis === "x" && this.props.pagingEnabled && this.props.pageWidth && !this._ignorePagingNext) {
             const threshold = this.props.pageWidth * (this.props.pagingThreshold ?? 0.25);
 
             if (offset > threshold) {
@@ -1142,12 +1143,16 @@ class ReactNativeZoomableView extends Component<
   }
 
   resetPan() {
+    this._ignorePagingNext = true;
     this.panAnim.stopAnimation();
 
     this.__offsets.x.boundaryCrossedAnimInEffect = false;
-
     this.panAnim.setValue({x: 0, y: 0});
     this.offsetX = 0;
+
+    requestAnimationFrame(() => {
+        this._ignorePagingNext = false;
+    })
   }
 
   /**

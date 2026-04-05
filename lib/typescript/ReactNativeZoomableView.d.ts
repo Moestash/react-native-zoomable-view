@@ -40,6 +40,7 @@ declare class ReactNativeZoomableView extends Component<ReactNativeZoomableViewP
     private panAnim;
     private zoomAnim;
     private pinAnim;
+    private _ignorePagingNext;
     private __offsets;
     private zoomLevel;
     private lastGestureCenterPosition;
