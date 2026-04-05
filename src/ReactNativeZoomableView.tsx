@@ -1141,15 +1141,13 @@ class ReactNativeZoomableView extends Component<
     return nextZoomStep;
   }
 
-  reset() {
-    this.zoomLevel = this.props.initialZoom ?? 1;
-    this.zoomAnim.setValue(this.zoomLevel);
+  resetPan() {
+    this.panAnim.stopAnimation();
 
-    this.offsetX = this.props.initialOffsetX ?? 0;
-    this.offsetY = this.props.initialOffsetY ?? 0;
-    this.panAnim.setValue({ x: this.offsetX, y: this.offsetY });
+    this.__offsets.x.boundaryCrossedAnimInEffect = false;
 
-    this.gestureType = null;
+    this.panAnim.setValue({x: 0, y: 0});
+    this.offsetX = 0;
   }
 
   /**
