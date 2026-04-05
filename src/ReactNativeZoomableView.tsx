@@ -80,6 +80,10 @@ class ReactNativeZoomableView extends Component<
     onStaticPinPositionMove: undefined,
     animatePin: true,
     disablePanOnInitialZoom: false,
+    pagingEnabled: false,
+    pagingThreshold: 0.25,
+    pageWidth: undefined,
+    onPageChange: undefined
   };
 
   private panAnim = new Animated.ValueXY({ x: 0, y: 0 });
@@ -258,6 +262,41 @@ class ReactNativeZoomableView extends Component<
           boundOffset !== offset &&
           boundOffset.toFixed(3) !== offset.toFixed(3);
         if (boundariesApplied) {
+
+          if (axis === "x" && this.props.pagingEnabled && this.props.pageWidth) {
+            const threshold = this.props.pageWidth * (this.props.pagingThreshold ?? 0.25);
+
+            if (offset > threshold) {
+              offsetState.boundaryCrossedAnimInEffect = true;
+
+              Animated.spring(this.panAnim.x, {
+                toValue: this.props.pageWidth,
+                useNativeDriver: true,
+                stiffness: 180,
+                damping: 20,
+              }).start(() => {
+                offsetState.boundaryCrossedAnimInEffect = false;
+                this.props.onPageChange?.("prev");
+              });
+              return;
+            }
+
+            if (offset < -threshold) {
+              offsetState.boundaryCrossedAnimInEffect = true;
+
+              Animated.spring(this.panAnim.x, {
+                toValue: -this.props.pageWidth,
+                useNativeDriver: true,
+                stiffness: 180,
+                damping: 20,
+              }).start(() => {
+                offsetState.boundaryCrossedAnimInEffect = false;
+                this.props.onPageChange?.("next");
+              });
+              return;
+            }
+          }
+
           offsetState.boundaryCrossedAnimInEffect = true;
           getBoundaryCrossedAnim(this.panAnim[axis], boundOffset).start(() => {
             offsetState.boundaryCrossedAnimInEffect = false;

@@ -38,6 +38,10 @@ export interface ReactNativeZoomableViewProps {
     longPressDuration?: number;
     visualTouchFeedbackEnabled?: boolean;
     disablePanOnInitialZoom?: boolean;
+    pagingEnabled?: boolean;
+    pagingThreshold?: number;
+    pageWidth?: number;
+    onPageChange?: (direction: "next" | "prev") => void;
     zoomAnimatedValue?: Animated.Value;
     panAnimatedValueXY?: Animated.ValueXY;
     debug?: boolean;
@@ -108,3 +112,4 @@ export interface ReactNativeZoomableViewWithGesturesProps extends ReactNativeZoo
     onSwipeLeft?: (gestureState: PanResponderGestureState) => void;
     onSwipeRight?: (gestureState: PanResponderGestureState) => void;
 }
+//# sourceMappingURL=index.d.ts.map

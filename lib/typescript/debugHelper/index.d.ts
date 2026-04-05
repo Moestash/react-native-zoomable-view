@@ -1,3 +1,4 @@
+/// <reference types="react" />
 export declare const DebugTouchPoint: ({ diameter, x, y, color, }: {
     diameter?: number | undefined;
     x?: number | undefined;
@@ -10,3 +11,4 @@ export declare const DebugRect: ({ height, x, y, color, }: {
     y: number;
     color: string;
 }) => JSX.Element;
+//# sourceMappingURL=index.d.ts.map

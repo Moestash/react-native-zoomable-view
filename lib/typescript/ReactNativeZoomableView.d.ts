@@ -32,6 +32,10 @@ declare class ReactNativeZoomableView extends Component<ReactNativeZoomableViewP
         onStaticPinPositionMove: undefined;
         animatePin: boolean;
         disablePanOnInitialZoom: boolean;
+        pagingEnabled: boolean;
+        pagingThreshold: number;
+        pageWidth: undefined;
+        onPageChange: undefined;
     };
     private panAnim;
     private zoomAnim;
@@ -243,3 +247,4 @@ declare class ReactNativeZoomableView extends Component<ReactNativeZoomableViewP
 }
 export default ReactNativeZoomableView;
 export { ReactNativeZoomableView };
+//# sourceMappingURL=ReactNativeZoomableView.d.ts.map
