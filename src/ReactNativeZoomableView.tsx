@@ -918,7 +918,7 @@ class ReactNativeZoomableView extends Component<
 
     if (this.props.lockMinZoomAxis && this.zoomLevel <= (this.props.minZoom ?? 1)) {
       if (!this._lockAxisForGesture) {
-        this._lockAxisForGesture = Math.abs(shift.x) > Math.abs(shift.y) ? "x" : "y";
+        this._lockAxisForGesture = Math.abs(gestureState.dx) > Math.abs(gestureState.dy) ? "x" : "y";
       }
 
       if (this._lockAxisForGesture === "x") {
