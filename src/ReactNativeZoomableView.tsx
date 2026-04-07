@@ -85,13 +85,15 @@ class ReactNativeZoomableView extends Component<
     pageWidth: undefined,
     onPageChange: undefined,
     canGoNext: true,
-    canGoPrev: true
+    canGoPrev: true,
+    lockMinZoomAxis: false
   };
 
   private panAnim = new Animated.ValueXY({ x: 0, y: 0 });
   private zoomAnim = new Animated.Value(1);
   private pinAnim = new Animated.ValueXY({ x: 0, y: 0 });
   private _ignorePagingNext = false;
+  private _lockAxisForGesture: "x" | "y" | null = null;
 
   private __offsets = {
     x: {
@@ -520,6 +522,8 @@ class ReactNativeZoomableView extends Component<
   _handlePanResponderGrant: NonNullable<
     PanResponderCallbacks['onPanResponderGrant']
   > = (e, gestureState) => {
+    this._lockAxisForGesture = null;
+
     if (this.props.onLongPress) {
       e.persist();
       this.longPressTimeout = setTimeout(() => {
@@ -909,8 +913,20 @@ class ReactNativeZoomableView extends Component<
     });
     if (!shift) return;
 
-    const offsetX = this.offsetX + shift.x;
-    const offsetY = this.offsetY + shift.y;
+    let offsetX = this.offsetX + shift.x;
+    let offsetY = this.offsetY + shift.y;
+
+    if (this.props.lockMinZoomAxis && this.zoomLevel <= (this.props.minZoom ?? 1)) {
+      if (!this._lockAxisForGesture) {
+        this._lockAxisForGesture = Math.abs(shift.x) > Math.abs(shift.y) ? "x" : "y";
+      }
+
+      if (this._lockAxisForGesture === "x") {
+        offsetY = this.offsetY;
+      } else {
+        offsetX = this.offsetX;
+      }
+    }
 
     if (
       this.props.debug &&

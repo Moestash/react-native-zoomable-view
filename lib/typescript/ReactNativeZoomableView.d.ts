@@ -38,11 +38,13 @@ declare class ReactNativeZoomableView extends Component<ReactNativeZoomableViewP
         onPageChange: undefined;
         canGoNext: boolean;
         canGoPrev: boolean;
+        lockMinZoomAxis: boolean;
     };
     private panAnim;
     private zoomAnim;
     private pinAnim;
     private _ignorePagingNext;
+    private _lockAxisForGesture;
     private __offsets;
     private zoomLevel;
     private lastGestureCenterPosition;

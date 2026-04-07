@@ -54,6 +54,7 @@ export interface ReactNativeZoomableViewProps {
   onPageChange?: (direction: "next" | "prev") => void;
   canGoNext?: boolean
   canGoPrev?: boolean
+  lockMinZoomAxis?: boolean
 
   // Zoom animated value ref
   zoomAnimatedValue?: Animated.Value;
