@@ -39,6 +39,7 @@ declare class ReactNativeZoomableView extends Component<ReactNativeZoomableViewP
         canGoNext: boolean;
         canGoPrev: boolean;
         lockMinZoomAxis: boolean;
+        lockMinZoom: number;
     };
     private panAnim;
     private zoomAnim;

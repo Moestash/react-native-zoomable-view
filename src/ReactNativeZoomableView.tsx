@@ -86,7 +86,8 @@ class ReactNativeZoomableView extends Component<
     onPageChange: undefined,
     canGoNext: true,
     canGoPrev: true,
-    lockMinZoomAxis: false
+    lockMinZoomAxis: false,
+    lockMinZoom: 1
   };
 
   private panAnim = new Animated.ValueXY({ x: 0, y: 0 });
@@ -916,7 +917,7 @@ class ReactNativeZoomableView extends Component<
     let offsetX = this.offsetX + shift.x;
     let offsetY = this.offsetY + shift.y;
 
-    if (this.props.lockMinZoomAxis && this.zoomLevel <= (this.props.minZoom ?? 1)) {
+    if (this.props.lockMinZoomAxis && this.zoomLevel <= (this.props.lockMinZoom ?? 1)) {
       if (!this._lockAxisForGesture) {
         this._lockAxisForGesture = Math.abs(gestureState.dx) > Math.abs(gestureState.dy) ? "x" : "y";
       }
